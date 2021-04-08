@@ -36,7 +36,6 @@ public class HomePage extends AppCompatActivity {
 
     ImageView imageView;
     TextView name, email, id;
-    Button signOut;
 
     GoogleSignInClient mGoogleSignInClient;
 
@@ -49,7 +48,6 @@ public class HomePage extends AppCompatActivity {
         imageView = findViewById(R.id.imageView);
         name = findViewById(R.id.textName);
         email = findViewById(R.id.textEmail);
-        signOut = findViewById(R.id.sign_out_button);
 //        signOut.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -126,6 +124,7 @@ public class HomePage extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
     public void sendMessage(View view){
 
         signOut();

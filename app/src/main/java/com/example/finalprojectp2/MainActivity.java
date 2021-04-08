@@ -1,6 +1,7 @@
 package com.example.finalprojectp2;
 
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -45,6 +46,9 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
     }
 
     private void signIn(){
