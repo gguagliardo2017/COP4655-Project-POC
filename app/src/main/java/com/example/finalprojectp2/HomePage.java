@@ -1,5 +1,6 @@
 package com.example.finalprojectp2;
 
+import android.content.ClipData;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -33,8 +34,8 @@ public class HomePage extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    TextView name, email, id;
     ImageView imageView;
+    TextView name, email, id;
     Button signOut;
 
     GoogleSignInClient mGoogleSignInClient;
@@ -43,9 +44,23 @@ public class HomePage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+
+        imageView = findViewById(R.id.imageView);
+        name = findViewById(R.id.textName);
+        email = findViewById(R.id.textEmail);
+        signOut = findViewById(R.id.sign_out_button);
+//        signOut.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
+
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         FloatingActionButton fab = findViewById(R.id.fab);
+
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -53,23 +68,8 @@ public class HomePage extends AppCompatActivity {
 
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        name = findViewById(R.id.name);
-        email = findViewById(R.id.email);
-        imageView = findViewById(R.id.imageView);
-        signOut = findViewById(R.id.signout);
-//        signOut.setOnClickListener(new View.OnClickListener() {
-//           @Override
-//           public void onClick(View view) {
-//                   switch (view.getId()) {
-//                       case R.id.signout:
-//                           signOut();
-//                           break;
-//                   }
-//               }
-//       });
 
-
-                GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if (acct != null) {
             String personName = acct.getDisplayName();
             String personEmail = acct.getEmail();
@@ -126,4 +126,10 @@ public class HomePage extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+    public void sendMessage(View view){
+
+        signOut();
+
+    }
+
 }
