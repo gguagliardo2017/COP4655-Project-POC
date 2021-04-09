@@ -1,12 +1,8 @@
 package com.example.finalprojectp2;
 
-import android.content.ClipData;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -30,30 +27,24 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import org.w3c.dom.Text;
+
 public class HomePage extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
-    ImageView imageView;
-    TextView name, email, id;
-
     GoogleSignInClient mGoogleSignInClient;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-
-        imageView = findViewById(R.id.imageView);
-        name = findViewById(R.id.textName);
-        email = findViewById(R.id.textEmail);
-//        signOut.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//            }
-//        });
+        NavigationView drawerLayout= (NavigationView) findViewById(R.id.nav_view);
+        View header = drawerLayout.getHeaderView(0);
+        TextView name = (TextView) header.findViewById(R.id.textName);
+        TextView email = (TextView) header.findViewById(R.id.textEmail);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -68,17 +59,12 @@ public class HomePage extends AppCompatActivity {
 
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if (acct != null) {
             String personName = acct.getDisplayName();
+            System.out.println(personName);
             String personEmail = acct.getEmail();
-            String personId = acct.getId();
-            Uri personPhoto = acct.getPhotoUrl();
-
-//            name.setText(personName);
-//            email.setText(personEmail);
-//            id.setText(personId);
-//            Glide.with(this).load(String.valueOf(personPhoto)).into(imageView);
-        }
+            System.out.println(personEmail);
+            name.setText(personName);
+            email.setText(personEmail);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

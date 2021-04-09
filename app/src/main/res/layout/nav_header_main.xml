@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@drawable/side_nav_bar"
+    android:background="@mipmap/chain"
+    android:divider="@drawable/ic_launcher_background"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -12,14 +13,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="64dp"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/ic_launcher_round" />
 
     <TextView
         android:id="@+id/textName"
@@ -37,10 +30,11 @@
 
     <Button
         android:id="@+id/signout"
-        android:layout_width="134dp"
+        android:layout_width="132dp"
         android:layout_height="38dp"
         android:onClick="sendMessage"
         android:text="@string/signOut"
-        app:backgroundTint="#3F51B5"
+        app:backgroundTint="#3949AB"
         app:iconTint="#E91E63" />
+
 </LinearLayout>
