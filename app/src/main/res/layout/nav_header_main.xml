@@ -7,6 +7,7 @@
     android:background="@mipmap/chain"
     android:divider="@drawable/ic_launcher_background"
     android:gravity="bottom"
+    android:onClick="sendMessage1"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -30,10 +31,19 @@
 
     <Button
         android:id="@+id/signout"
-        android:layout_width="132dp"
+        android:layout_width="122dp"
         android:layout_height="38dp"
         android:onClick="sendMessage"
         android:text="@string/signOut"
+        app:backgroundTint="#3949AB"
+        app:iconTint="#E91E63" />
+
+    <Button
+        android:id="@+id/CryptoS"
+        android:layout_width="122dp"
+        android:layout_height="38dp"
+        android:onClick="sendMessage1"
+        android:text="@string/Crypto"
         app:backgroundTint="#3949AB"
         app:iconTint="#E91E63" />
 
