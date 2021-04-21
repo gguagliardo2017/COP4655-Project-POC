@@ -8,14 +8,14 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="411dp"
-        android:layout_height="276dp"
+        android:layout_width="410dp"
+        android:layout_height="257dp"
 
         android:background="@color/cardview_dark_background"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NewsList"
+        app:layout_constraintTop_toBottomOf="@+id/CryptoList"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="1dp" />
 
     <SearchView
         android:id="@+id/newSearch"
@@ -23,13 +23,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:background="@drawable/side_nav_bar"
-        app:layout_constraintBottom_toTopOf="@+id/NewsList"
+        app:layout_constraintBottom_toTopOf="@+id/CryptoList"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="2dp" />
 
     <ListView
-        android:id="@+id/NewsList"
+        android:id="@+id/CryptoList"
         android:layout_width="411dp"
         android:layout_height="406dp"
         android:background="@color/cardview_dark_background"

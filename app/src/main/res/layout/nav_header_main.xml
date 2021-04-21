@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="@color/black"
+    android:background="@color/cardview_dark_background"
     android:divider="@drawable/ic_launcher_background"
     android:gravity="bottom"
     android:onClick="sendMessage1"
@@ -35,7 +35,7 @@
         android:layout_height="38dp"
         android:onClick="sendMessage"
         android:text="@string/signOut"
-        app:backgroundTint="@color/purple_200"
+        app:backgroundTint="@color/black"
         app:iconTint="#E91E63" />
 
     <Button
@@ -44,7 +44,7 @@
         android:layout_height="38dp"
         android:onClick="sendMessage1"
         android:text="@string/Crypto"
-        app:backgroundTint="@color/purple_200"
+        app:backgroundTint="@color/black"
         app:iconTint="#E91E63" />
 
 </LinearLayout>

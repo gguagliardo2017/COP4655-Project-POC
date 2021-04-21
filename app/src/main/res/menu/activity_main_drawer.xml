@@ -7,15 +7,15 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:icon="?attr/actionModeCloseDrawable"
+            android:icon="@mipmap/home"
             android:title="@string/menu_home" />
         <item
             android:id="@+id/nav_gallery"
-            android:icon="@android:drawable/ic_popup_reminder"
+            android:icon="@mipmap/ok"
             android:title="@string/menu_gallery" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@android:drawable/btn_star_big_on"
+            android:icon="@mipmap/pngegg"
             android:title="Currency Exchange" />
     </group>
 </menu>
