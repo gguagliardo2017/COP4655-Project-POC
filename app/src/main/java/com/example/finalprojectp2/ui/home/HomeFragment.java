@@ -5,19 +5,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.ListFragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -25,28 +19,35 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bumptech.glide.load.resource.bitmap.BitmapDrawableResource;
 import com.example.finalprojectp2.R;
+import com.example.finalprojectp2.Utils;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 
 public class HomeFragment extends Fragment {
 
-//    private HomeViewModel homeViewModel;
+    //    private HomeViewModel homeViewModel;
     String test;
     ListView listView;
     SearchView searchView;
-    String test1;
-    String test2;
-    String test3;
-    String test4;
-    String test5;
+    String url;
 
+    ImageView CryptoImage;
+    TextView cryptoname;
+    TextView symbol;
+    TextView price;
+    TextView change;
+    String symboldata;
+    String symboldata1;
+    String symboldata2;
+    String symboldata3;
+    String symboldata4;
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -59,44 +60,64 @@ public class HomeFragment extends Fragment {
         searchView = (SearchView) root.findViewById(R.id.newSearch);
         listView = (ListView) root.findViewById(R.id.CryptoList);
 
+
+        CryptoImage=(ImageView) root.findViewById(R.id.CryptoImage);
+        cryptoname =(TextView) root.findViewById(R.id.cryptoName);
+        symbol =(TextView) root.findViewById(R.id.symbol);
+        price =(TextView) root.findViewById(R.id.price);
+        change =(TextView) root.findViewById(R.id.change);
+
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+
+
             @Override
             public boolean onQueryTextSubmit(String query) {
                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-                String API_KEY = "0sxt6lx8utiuutizbbbtawayfdi5wkc5xjojdh6k";
+//                String API_KEY = "coinrankingd062b50d5908d51e3b77afa50c2eb25e0498ae710a418e6d";
 
-                String url ="https://www.alphavantage.co/query?function=" + "DIGITAL_CURRENCY_DAILY" +  "&symbol=" + query + "&market=" + "USD" + "&apikey="+ API_KEY;
+
+                if(query.equals("btc") || query.equals("BTC")){
+                    query = "Qwsogvtv82FCd";
+                }else if(query.equals("eth") || query.equals("ETH")){
+                    query = "razxDUgYGNAdQ";
+                }else if(query.equals("xrp") || query.equals("XRP")){
+                    query = "-l8Mn2pVlRs-p";
+                }else if(query.equals("usdt") || query.equals("USDT")){
+                    query = "HIVsRcGKkPFtW";
+                }else if(query.equals("ada") || query.equals("ADA")){
+                    query = "qzawljRxB5bYu";
+                }
+
+
+                url = "https://api.coinranking.com/v2/coin/" + query;
 
                 // Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                // Display the first 500 characters of the response string.
-//                        textView.setText("Response is: " + response);
-//                        System.out.println(response);
-                                try { JSONObject jsonObject = new JSONObject(response);
-                                    JSONObject main = jsonObject.getJSONObject("Meta Data");
-                                    test = main.getString("2. Digital Currency Code");
-                                    test1 = main.getString("3. Digital Currency Name");
-                                    test2 = main.getString("4. Market Code");
-                                    test3 = main.getString("7. Time Zone");
-                                    test4 = main.getString("6. Last Refreshed");
-                                    test5 = main.getString("1. Information");
+                                try {
 
-
+                                    JSONObject jsonObject = new JSONObject(response);
+                                    JSONObject data = jsonObject.getJSONObject("data");
+                                    JSONObject coins = data.getJSONObject("coin");
+                                    symboldata  = coins.getString("symbol");
+                                    symboldata1 = coins.getString("name");
+                                    symboldata2 = coins.getString("iconUrl");
+                                    symboldata3 = coins.getString("price");
+                                    symboldata4 = coins.getString("change");
 
                                 } catch (JSONException err) {
                                     Log.d("Error", err.toString());
                                 }
-                                ArrayList<String> listOne = new ArrayList<String>(Arrays.asList(test5 + "\n"
-                                        + test + "\n"
-                                        + test1 + "\n"
-                                        + test2 + "\n"
-                                        + test3 + "\n"
-                                        + test4));
-                                ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, listOne);
-                                listView.setAdapter(arrayAdapter);
+//                                cryptoname.setText(test2);
+                                symbol.setText(symboldata);
+                                cryptoname.setText(symboldata1);
+                                Utils.fetchSvg(getActivity(), symboldata2, CryptoImage);
+                                price.setText(symboldata3);
+                                change.setText(symboldata4 + "%");
 
                             }
 
@@ -123,7 +144,6 @@ public class HomeFragment extends Fragment {
                                           }
                                       }
         );
-
 
 
         return root;
