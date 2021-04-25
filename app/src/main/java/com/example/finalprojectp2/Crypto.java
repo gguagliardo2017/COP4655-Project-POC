@@ -1,7 +1,5 @@
 package com.example.finalprojectp2;
 
-import com.example.finalprojectp2.ui.home.HomeFragment;
-
 public class Crypto {
     private String symbol;
     private String name;
@@ -56,4 +54,6 @@ public class Crypto {
     public void setChange(String change) {
         this.change = change;
     }
+
+
 }

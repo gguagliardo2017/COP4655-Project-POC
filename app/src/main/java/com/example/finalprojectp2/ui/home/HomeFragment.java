@@ -1,15 +1,13 @@
 package com.example.finalprojectp2.ui.home;
 
-import android.app.Person;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -26,13 +24,13 @@ import com.example.finalprojectp2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,18 +39,16 @@ public class HomeFragment extends Fragment {
     SearchView searchView;
     String url;
 
-//    ImageView CryptoImage;
-//    TextView cryptoname;
-//    TextView symbol;
-//    TextView price;
-//    TextView change;
     String symbol;
     String name;
     String iconUrl;
     String price;
     String change;
+    String allitems;
     ListView listView;
     Crypto crypto;
+    Button favorite;
+    Button favorites;
     private DocumentReference mDocRef = FirebaseFirestore.getInstance().document("Favs/Favs");
 
 
@@ -60,23 +56,15 @@ public class HomeFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
 
 
-
-//        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
 
         searchView = (SearchView) root.findViewById(R.id.newSearch);
-        listView = (ListView) root.findViewById(R.id.listView);
-
-//        CryptoImage=(ImageView) root.findViewById(R.id.CryptoImage);
-//        cryptoname =(TextView) root.findViewById(R.id.cryptoName);
-//        symbol =(TextView) root.findViewById(R.id.symbol);
-//        price =(TextView) root.findViewById(R.id.price);
-//        change =(TextView) root.findViewById(R.id.change);
+        listView = (ListView) root.findViewById(R.id.ListView);
+        favorite = (Button) root.findViewById(R.id.button);
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
 
 
             @Override
@@ -84,15 +72,15 @@ public class HomeFragment extends Fragment {
                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 //                String API_KEY = "coinrankingd062b50d5908d51e3b77afa50c2eb25e0498ae710a418e6d";
 
-                if(query.equals("btc") || query.equals("BTC")){
+                if (query.equals("btc") || query.equals("BTC")) {
                     query = "Qwsogvtv82FCd";
-                }else if(query.equals("eth") || query.equals("ETH")){
+                } else if (query.equals("eth") || query.equals("ETH")) {
                     query = "razxDUgYGNAdQ";
-                }else if(query.equals("xrp") || query.equals("XRP")){
+                } else if (query.equals("xrp") || query.equals("XRP")) {
                     query = "-l8Mn2pVlRs-p";
-                }else if(query.equals("usdt") || query.equals("USDT")){
+                } else if (query.equals("usdt") || query.equals("USDT")) {
                     query = "HIVsRcGKkPFtW";
-                }else if(query.equals("ada") || query.equals("ADA")){
+                } else if (query.equals("ada") || query.equals("ADA")) {
                     query = "qzawljRxB5bYu";
                 }
 
@@ -124,33 +112,15 @@ public class HomeFragment extends Fragment {
 
 
                                 ArrayList<Crypto> listOne = new ArrayList<Crypto>();
+
                                 listOne.add(crypto);
+
+
 
                                 CryptoAdapter adapter = new CryptoAdapter(getActivity(), R.layout.adapter_view_layout, listOne);
                                 listView.setAdapter(adapter);
 
 
-                                Map<String, Object> data = new HashMap<String, Object>();
-                                data.put("All Info", crypto);
-
-
-
-                                mDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    private static final String TAG = "";
-
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
-
-                                        Log.d(TAG, "It works");
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    private static final String TAG = "";
-
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.w(TAG, "it doesn't work");
-                                    }
-                                });
                             }
 
                         }, new Response.ErrorListener() {
@@ -177,10 +147,37 @@ public class HomeFragment extends Fragment {
                                       }
         );
 
+        favorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Map<String, Object> data = new HashMap<String, Object>();
+                data.put("map", crypto);
+
+
+                mDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    private static final String TAG = "";
+
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        Log.d(TAG, "It works");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    private static final String TAG = "";
+
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "it doesn't work");
+                    }
+                });
+            }
+        });
+
 
         return root;
-
-
     }
 
 }
+
+

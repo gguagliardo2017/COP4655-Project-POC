@@ -38,13 +38,4 @@
         app:backgroundTint="@color/black"
         app:iconTint="#E91E63" />
 
-    <Button
-        android:id="@+id/CryptoS"
-        android:layout_width="122dp"
-        android:layout_height="38dp"
-        android:onClick="sendMessage1"
-        android:text="@string/Crypto"
-        app:backgroundTint="@color/black"
-        app:iconTint="#E91E63" />
-
 </LinearLayout>

@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class CryptoAdapter extends ArrayAdapter<Crypto> {
 
@@ -56,9 +56,9 @@ public class CryptoAdapter extends ArrayAdapter<Crypto> {
 
 
 
-
         return convertView;
 
 
     }
+
 }

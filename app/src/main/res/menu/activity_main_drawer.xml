@@ -15,7 +15,7 @@
             android:title="@string/menu_gallery" />
         <item
             android:id="@+id/nav_slideshow"
-            android:icon="@mipmap/pngegg"
-            android:title="Currency Exchange" />
+            android:icon="@mipmap/star"
+            android:title="Favorites" />
     </group>
 </menu>
