@@ -33,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     SignInButton signIn;
     int RC_SIGN_IN = 0;
-    String test;
-    TextView testView;
 
     GoogleSignInClient mGoogleSignInClient;
 

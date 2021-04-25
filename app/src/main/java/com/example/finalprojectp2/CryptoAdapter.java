@@ -9,9 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class CryptoAdapter extends ArrayAdapter<Crypto> {
 
@@ -53,7 +50,6 @@ public class CryptoAdapter extends ArrayAdapter<Crypto> {
         symbolView.setText(symbol);
         priceView.setText(price);
         changeView.setText(change + "%");
-
 
 
         return convertView;

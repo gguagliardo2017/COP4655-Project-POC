@@ -35,7 +35,8 @@
         android:layout_height="38dp"
         android:onClick="sendMessage"
         android:text="@string/signOut"
-        app:backgroundTint="@color/black"
+        android:textColor="#1C1616"
+        app:backgroundTint="@color/teal_700"
         app:iconTint="#E91E63" />
 
 </LinearLayout>

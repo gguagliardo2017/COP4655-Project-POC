@@ -5,6 +5,10 @@ plugins {
 }
 
 android {
+    lintOptions{
+        checkReleaseBuilds false
+
+    }
     signingConfigs {
         release {
             storeFile file('C:\\Users\\Gianu\\Desktop\\Apk\\FinalProject.jks')

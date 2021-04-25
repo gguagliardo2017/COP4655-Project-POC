@@ -36,7 +36,7 @@
         android:layout_marginStart="120dp"
         android:layout_marginEnd="120dp"
         android:layout_marginBottom="-80dp"
-        android:text="Favorite"
+        android:text="Favorite / Remove"
         app:backgroundTint="@color/teal_700" />
 
 </RelativeLayout>

@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -24,12 +24,9 @@ import com.example.finalprojectp2.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -38,17 +35,14 @@ public class HomeFragment extends Fragment {
 
     SearchView searchView;
     String url;
-
     String symbol;
     String name;
     String iconUrl;
     String price;
     String change;
-    String allitems;
     ListView listView;
     Crypto crypto;
     Button favorite;
-    Button favorites;
     private DocumentReference mDocRef = FirebaseFirestore.getInstance().document("Favs/Favs");
 
 
@@ -70,7 +64,6 @@ public class HomeFragment extends Fragment {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
-//                String API_KEY = "coinrankingd062b50d5908d51e3b77afa50c2eb25e0498ae710a418e6d";
 
                 if (query.equals("btc") || query.equals("BTC")) {
                     query = "Qwsogvtv82FCd";
@@ -83,7 +76,6 @@ public class HomeFragment extends Fragment {
                 } else if (query.equals("ada") || query.equals("ADA")) {
                     query = "qzawljRxB5bYu";
                 }
-
 
                 url = "https://api.coinranking.com/v2/coin/" + query;
 
@@ -110,16 +102,12 @@ public class HomeFragment extends Fragment {
                                     Log.d("Error", err.toString());
                                 }
 
-
                                 ArrayList<Crypto> listOne = new ArrayList<Crypto>();
 
                                 listOne.add(crypto);
 
-
-
                                 CryptoAdapter adapter = new CryptoAdapter(getActivity(), R.layout.adapter_view_layout, listOne);
                                 listView.setAdapter(adapter);
-
 
                             }
 
@@ -162,6 +150,8 @@ public class HomeFragment extends Fragment {
                     public void onSuccess(Void aVoid) {
 
                         Log.d(TAG, "It works");
+                        Toast toast = Toast.makeText(getActivity(),"Crypto Added / Removed", Toast.LENGTH_SHORT);
+                        toast.show();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     private static final String TAG = "";
@@ -173,7 +163,6 @@ public class HomeFragment extends Fragment {
                 });
             }
         });
-
 
         return root;
     }

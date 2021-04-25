@@ -1,6 +1,5 @@
 package com.example.finalprojectp2.ui.gallery;
 
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,10 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -22,11 +19,9 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.finalprojectp2.R;
 import com.squareup.picasso.Picasso;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -34,12 +29,10 @@ import java.util.Arrays;
 public class GalleryFragment extends Fragment {
 
     SearchView searchView;
-    View viewNews;
     String news;
     String newsUrl;
     String newsTitle;
     ListView listView;
-    Bitmap image;
     ImageView imageView;
     String newsText;
 
@@ -61,14 +54,11 @@ public class GalleryFragment extends Fragment {
 
                 String url = "https://cryptonews-api.com/api/v1?tickers=" + query + "&items=" + items + "&token=" + API_KEY;
 
-                // Request a string response from the provided URL.
                 StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                // Display the first 500 characters of the response string.
-//                        textView.setText("Response is: " + response);
-//                        System.out.println(response);
+
                                 try { JSONObject jsonObject = new JSONObject(response);
                             JSONArray openAPI = jsonObject.getJSONArray("data");
                             JSONObject openArray = openAPI.getJSONObject(0);
