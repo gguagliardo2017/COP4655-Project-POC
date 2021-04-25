@@ -1,5 +1,6 @@
 package com.example.finalprojectp2.ui.home;
 
+import android.app.Person;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,53 +20,59 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.load.resource.bitmap.BitmapDrawableResource;
+import com.example.finalprojectp2.Crypto;
+import com.example.finalprojectp2.CryptoAdapter;
 import com.example.finalprojectp2.R;
-import com.example.finalprojectp2.Utils;
-import com.squareup.picasso.Picasso;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 public class HomeFragment extends Fragment {
 
-    //    private HomeViewModel homeViewModel;
-    String test;
-    ListView listView;
     SearchView searchView;
     String url;
 
-    ImageView CryptoImage;
-    TextView cryptoname;
-    TextView symbol;
-    TextView price;
-    TextView change;
-    String symboldata;
-    String symboldata1;
-    String symboldata2;
-    String symboldata3;
-    String symboldata4;
+//    ImageView CryptoImage;
+//    TextView cryptoname;
+//    TextView symbol;
+//    TextView price;
+//    TextView change;
+    String symbol;
+    String name;
+    String iconUrl;
+    String price;
+    String change;
+    ListView listView;
+    Crypto crypto;
+    private DocumentReference mDocRef = FirebaseFirestore.getInstance().document("Favs/Favs");
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
 
+
 //        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
 
+
         searchView = (SearchView) root.findViewById(R.id.newSearch);
-        listView = (ListView) root.findViewById(R.id.CryptoList);
+        listView = (ListView) root.findViewById(R.id.listView);
 
-
-        CryptoImage=(ImageView) root.findViewById(R.id.CryptoImage);
-        cryptoname =(TextView) root.findViewById(R.id.cryptoName);
-        symbol =(TextView) root.findViewById(R.id.symbol);
-        price =(TextView) root.findViewById(R.id.price);
-        change =(TextView) root.findViewById(R.id.change);
+//        CryptoImage=(ImageView) root.findViewById(R.id.CryptoImage);
+//        cryptoname =(TextView) root.findViewById(R.id.cryptoName);
+//        symbol =(TextView) root.findViewById(R.id.symbol);
+//        price =(TextView) root.findViewById(R.id.price);
+//        change =(TextView) root.findViewById(R.id.change);
 
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -76,7 +83,6 @@ public class HomeFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 RequestQueue queue = Volley.newRequestQueue(getActivity().getApplicationContext());
 //                String API_KEY = "coinrankingd062b50d5908d51e3b77afa50c2eb25e0498ae710a418e6d";
-
 
                 if(query.equals("btc") || query.equals("BTC")){
                     query = "Qwsogvtv82FCd";
@@ -103,22 +109,48 @@ public class HomeFragment extends Fragment {
                                     JSONObject jsonObject = new JSONObject(response);
                                     JSONObject data = jsonObject.getJSONObject("data");
                                     JSONObject coins = data.getJSONObject("coin");
-                                    symboldata  = coins.getString("symbol");
-                                    symboldata1 = coins.getString("name");
-                                    symboldata2 = coins.getString("iconUrl");
-                                    symboldata3 = coins.getString("price");
-                                    symboldata4 = coins.getString("change");
+
+                                    crypto = new Crypto(symbol, name, iconUrl, price, change);
+                                    crypto.setSymbol(coins.getString("symbol"));
+                                    crypto.setName(coins.getString("name"));
+                                    crypto.setIconUrl(coins.getString("iconUrl"));
+                                    crypto.setPrice(coins.getString("price"));
+                                    crypto.setChange(coins.getString("change"));
+
 
                                 } catch (JSONException err) {
                                     Log.d("Error", err.toString());
                                 }
-//                                cryptoname.setText(test2);
-                                symbol.setText(symboldata);
-                                cryptoname.setText(symboldata1);
-                                Utils.fetchSvg(getActivity(), symboldata2, CryptoImage);
-                                price.setText(symboldata3);
-                                change.setText(symboldata4 + "%");
 
+
+                                ArrayList<Crypto> listOne = new ArrayList<Crypto>();
+                                listOne.add(crypto);
+
+                                CryptoAdapter adapter = new CryptoAdapter(getActivity(), R.layout.adapter_view_layout, listOne);
+                                listView.setAdapter(adapter);
+
+
+                                Map<String, Object> data = new HashMap<String, Object>();
+                                data.put("All Info", crypto);
+
+
+
+                                mDocRef.set(data).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    private static final String TAG = "";
+
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+
+                                        Log.d(TAG, "It works");
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    private static final String TAG = "";
+
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "it doesn't work");
+                                    }
+                                });
                             }
 
                         }, new Response.ErrorListener() {
@@ -150,4 +182,5 @@ public class HomeFragment extends Fragment {
 
 
     }
+
 }
